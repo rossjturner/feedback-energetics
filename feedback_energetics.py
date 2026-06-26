@@ -18,6 +18,7 @@ except:
 year = 365.2422*24*3600 # average year in seconds
 maverage = (0.6*const.m_p.value) # kg average particle mass
 k_B = const.k_B.value # Boltzmann constant
+gammaCValue = 5/3. # adiabatic index of lobe/shocked shell/ambient gas
  
 # properties of mock clusters consdiered in Turner et al. (2026)
 clusters = [['A', 2.41, 144, 0.38, 3.46], \
