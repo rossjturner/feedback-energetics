@@ -16,6 +16,18 @@ clusters = feedback_energetics.clusters
 feedback_energetics.feedback_tabulator(jet_power, active_age, clusters, axis_ratio=2.83, r=None, alpha=0)
 ```
 
+The `clusters' array contains the properties of the ten mock clusters considered in Turner et al. (2026). The attributes of other clusters can be specified as follows:
+
+```
+clusters = [
+  'L', # name
+  2.41, # core density; 1e-24 * kg/m^3
+  28.8, # core radius; kpc
+  0.57, # beta' parameter in modified beta profile
+  3.46, # temperature; 1e7 * Kelvin
+]
+```
+
 The data files can be read and output as a dictionary using the following function (for the mock cluster 'A'):
 
 ```
@@ -29,6 +41,6 @@ jet_power = dict['jet_power'] # log10 W
 active_age = dict['active_age'] # log10 years
 r = dict['r'] # kpc
 theta = dict['theta'] # radians
-bubble_energy = dict['bubble_energy'] # Joules/m^-3
+bubble_energy = dict['bubble_energy'] # Joules/m^3
 ```
 Contact Ross Turner (ross.turner@utas.edu.au) for any corrections or clarifications.
