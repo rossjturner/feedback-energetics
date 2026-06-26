@@ -1,4 +1,4 @@
-# Energetics of AGN feedback
+# Energetics of AGN Feedback
 
 Code and online supplement for Turner et al. (2026): Energetics of AGN Feedback.
 
