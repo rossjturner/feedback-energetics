@@ -57,7 +57,7 @@ def feedback_energetics(jet_power, active_age, rho0Value=2.41e-24, r_c=144., bet
 
     # define vector of r and theta
     if r is None or len(r) == 0:
-        r = 10**np.arange(-1, 3 + 1e-9, 0.02) * const.kpc.value
+        r = 10**np.arange(0, 3 + 1e-9, 0.02) * const.kpc.value
     dr = 10**((np.log10(r[1]) - np.log10(r[0]))/2)
     angles = np.arange(0, lobe_angles, 1).astype(np.int_)
     dtheta = (np.pi/2)/(lobe_angles - 1)
@@ -209,15 +209,24 @@ def feedback_tabulator(jet_power, active_age, clusters, axis_ratio=2.83, r=None,
             for j in range(0, len(active_age)):
                 r_ret, _, theta_ret, _, bubble_energy, _ = feedback_energetics(jet_power[i], active_age[j], rho0Value=clusters[n][1]*1e-24, r_c=clusters[n][2], beta_prime=clusters[n][3], temperature=clusters[n][4]*1e7, axis_ratio=axis_ratio, r=r, alpha=alpha)
                 bubble_grid[i,j] = bubble_energy
-                
+        
+        # convert to efficient data type
+        bubble_grid = np.array([[np.array(x)/1e-12 for x in row] for row in bubble_grid], dtype=np.float32)
+        
+        # average data over polar angle
+        #theta_ret = theta[::3]
+        #dim0, dim1, dim2, dim3 = bubble_grid.shape
+        #averaged_grid = ((bubble_grid[:, :, :, 2:dim3-2].copy()).reshape(dim0, dim1, dim2, -1, 3)).mean(axis=-1)
+        #bubble_grid = np.concatenate([bubble_grid[:, :, :, 0:1]/3 + 2*bubble_grid[:, :, :, 1:2]/3, averaged_grid, 2*bubble_grid[:, :, :, (dim3-2):(dim3-1)]/3 + bubble_grid[:, :, :, (dim3-1):dim3]/3], axis=-1)
+        
         # save feedback energetics to file
         np.savez_compressed(
         'feedback_energetics_cluster={:}.npz'.format(clusters[n][0]),
-            jet_power=np.asarray(jet_power),
-            active_age=np.asarray(active_age),
-            r=r_ret,
-            theta=theta_ret,
-            bubble_energy=bubble_grid
+            jet_power=np.asarray(jet_power).astype(np.float16),
+            active_age=np.asarray(active_age).astype(np.float16),
+            r=(r_ret/const.kpc.value).astype(np.float16),
+            theta=theta_ret.astype(np.float16),
+            bubble_energy=bubble_grid.astype(np.float16)
         )
 
 # function to read-in feedback energetics from existing data files
@@ -232,5 +241,5 @@ def feedback_reader(cluster_name):
         "active_age": data["active_age"],
         "r": data["r"],
         "theta": data["theta"],
-        "bubble_energy": data["bubble_energy"]
+        "bubble_energy": data["bubble_energy"].astype(np.float32)*1e-12
     }
