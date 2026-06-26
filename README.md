@@ -1,5 +1,7 @@
 # Energetics of AGN feedback
 
+Code and online supplement for Turner et al. (2026): Energetics of AGN Feedback.
+
 The tabulated feedback energetics provided in this repository are run using the version of RAiSE included and the feedback_energetics.py file using the following commands:
 
 ```
