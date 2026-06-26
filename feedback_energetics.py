@@ -217,7 +217,7 @@ def feedback_tabulator(jet_power, active_age, clusters, axis_ratio=2.83, r=None,
             active_age=np.asarray(active_age),
             r=r_ret,
             theta=theta_ret,
-            bubble=bubble_grid
+            bubble_energy=bubble_grid
         )
 
 # function to read-in feedback energetics from existing data files
@@ -232,5 +232,5 @@ def feedback_reader(cluster_name):
         "active_age": data["active_age"],
         "r": data["r"],
         "theta": data["theta"],
-        "bubble": data["bubble"]
+        "bubble_energy": data["bubble_energy"]
     }
