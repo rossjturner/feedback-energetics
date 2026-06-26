@@ -27,6 +27,7 @@ clusters = [
   3.46, # temperature; 1e7 * Kelvin
 ]
 ```
+The properties of multiple clusters can be provided as a list of lists.
 
 The data files can be read and output as a dictionary using the following function (for the mock cluster 'A'):
 
@@ -43,4 +44,6 @@ r = dict['r'] # kpc
 theta = dict['theta'] # radians
 bubble_energy = dict['bubble_energy'] # Joules/m^3
 ```
+The feedback energetics are provided in (r, theta) coordinates with axis-symmetry in the azimuthal component. These can be converted to Cartesian coordinates using standard spherical to Cartesian coordinate transformations.
+
 Contact Ross Turner (ross.turner@utas.edu.au) for any corrections or clarifications.
