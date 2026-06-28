@@ -34,6 +34,7 @@ The data files can be read and output as a dictionary using the following functi
 ```
 dict = feedback_energetics.feedback_reader('A')
 ```
+The energetics for Clusters A through K are provided in this repository.
 
 The dictionary comprises the fields below with units shown in the comments. The bubble_energy array is ordered (jet_power, active_age, r, theta).
 
